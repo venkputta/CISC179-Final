@@ -1,5 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog
+import os
+import unittest
 
 class GUI:
     def __init__(self, root):
@@ -27,28 +29,25 @@ class GUI:
             self.analyze_file()
 
     def analyze_file(self):
-        try:
+        if self.validate_file():
 
             pass
-        except FileNotFoundError:
 
-            pass
-        except Exception as e:
+    def validate_file(self):
+        if os.path.isfile(self.file_path) and os.access(self.file_path, os.R_OK):
+            return True
+        else:
 
-            pass
+            raise FileNotFoundError("File not found or not readable.")
+            return False
+
+
+class MyTest(unittest.TestCase):
+    def test_my_functionality(self):
+        
+        pass
 
 if __name__ == "__main__":
     root = tk.Tk()
     gui = GUI(root)
     root.mainloop()
-
-import unittest
-
-
-class MyTest(unittest.TestCase):
-    def test_my_functionality(self):
-
-        pass
-
-if __name__ == '__main__':
-    unittest.main()
